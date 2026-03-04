@@ -8,6 +8,9 @@
   <style>
     body {
       font-family: Segoe UI, Arial, Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
       margin: 32px;
       background: #f7f9fc;
       color: #222
@@ -55,42 +58,74 @@
       display: block;
       color: #666;
       font-size: 13px;
-      margin-top: 4px
     }
 
     footer {
-      margin-top: 28px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #f7f9fc;
+      text-align: center;
+      padding: 20px 0;
       color: #777;
-      font-size: 13px
+      font-size: 13px;
+      border-top: 1px solid #e3e7ee;
     }
   </style>
 </head>
 
 <body>
   <header>
-    <h1 >Mục lục bài học</h1>
-    <p class="lead">Danh sách các buổi học và trang nội dung trong dự án. Nhấn vào tiêu đề để mở trang tương ứng.</p>
+
+    <nav
+      style="background: var(--primary-color, #003366); color: white; padding: 15px 20px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <div style="font-weight: 600;">
+        <span style="display: block; font-size: 0.85rem; opacity: 0.8;">Học phần:</span>
+        <span style="font-size: 1.1rem;">Lập trình Back-end (AI-Driven)</span>
+      </div>
+      <div style="text-align: right; font-weight: 600;">
+        <span style="display: block; font-size: 0.85rem; opacity: 0.8;">Giảng viên:</span>
+        <span style="font-size: 1.1rem;">Thầy Nguyễn Minh Phúc</span>
+      </div>
+    </nav>
+   
+    <p class="lead">
+
+    <ul><b>Thông tin chung :</b>
+      <li>Tên học phần: Lập trình Back-end (Phát triển ứng dụng phía máy chủ).</li>
+      <li>Đối tượng học tập: Sinh viên hệ Liên thông ngành Công nghệ thông tin.</li>
+
+
+      <li>Thời lượng: 60 tiết (15 buổi lý thuyết kết hợp thực hành).</li>
+      <li>Công nghệ chủ đạo: Node.js, Express.js, SQL Server, Sequelize ORM.</li>
+      <li>Công cụ hỗ trợ: Cursor AI, GitHub Copilot (Tích hợp AI viết code).</li>
+    </ul>
+    </p>
   </header>
 
   <main>
+     <h1>Mục lục bài học</h1>
     <ul class="toc">
       <li>
         <a class="lesson" href="Buoi01.html" target="_self">Bài 01 — Giới thiệu</a>
         <span class="meta">File: Buoi01.html — Nội dung buổi đầu.</span>
       </li>
       <li>
-        <a class="lesson" href="Buoi02.html" target="_self">Bài 02  - Tư duy thiết kế Database – cái móng của hệ thống Backend</a>
+        <a class="lesson" href="Buoi02.html" target="_self">Bài 02 - Tư duy thiết kế Database – cái móng của hệ thống
+          Backend</a>
         <span class="meta">File: Buoi02.html — Dự phòng cho buổi tiếp theo.</span>
       </li>
       <li>
-        <a class="lesson" href="Buoi03.html" target="_self">Bài 03  - Khởi tạo Server Express & Cấu trúc thư mục chuyên nghiệp.</a>
+        <a class="lesson" href="Buoi03.html" target="_self">Bài 03 - Khởi tạo Server Express & Cấu trúc thư mục chuyên
+          nghiệp.</a>
         <span class="meta">File: Buoi03.html — Dự phòng cho buổi tiếp theo.</span>
       </li>
     </ul>
   </main>
 
   <footer>
-    <div>Ghi chú: Thêm các file `Buoi02.html`, `Buoi03.html`, ... vào thư mục để hiển thị liên kết.</div>
+    <div>© 2026 Khoa Công nghệ thông tin</div>
   </footer>
 </body>
 
