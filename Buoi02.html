@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LHU - Buổi 2: JS Modern & Database Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #003366; 
+            --accent-color: #ffcc00;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --slide-bg: #ffffff;
+            --code-bg: #282c34;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 80px 60px;
+            box-sizing: border-box;
+            background: var(--slide-bg);
+            position: relative;
+        }
+
+        .slide::before {
+            content: "Lạc Hồng University - Faculty of IT";
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .slide::after {
+            content: "Buổi 2: JS Modern & Database Design - Thầy Nguyễn Minh Phúc";
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .content-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px dashed #ccc;
+            height: 100%;
+            width: 100%;
+        }
+
+        .content-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 3rem;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            border-left: 8px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        ul {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            padding-left: 20px;
+        }
+
+        li { margin-bottom: 10px; }
+
+        .code-block {
+            background: var(--code-bg);
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Consolas', monospace;
+            font-size: 1rem;
+            margin: 10px 0;
+            border-left: 5px solid var(--accent-color);
+            white-space: pre-wrap;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { background: var(--accent-color); color: #000; }
+
+        .slide-number {
+            position: fixed;
+            bottom: 40px;
+            left: 50px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .title-slide { grid-template-columns: 1fr; text-align: center; }
+        .title-slide .content-left { align-items: center; }
+
+        .highlight-box {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            padding: 15px;
+            border-radius: 8px;
+            font-style: italic;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" id="slideContainer">
+        
+        <div class="slide title-slide">
+            <div class="content-left">
+                <h1>BUỔI 2: JAVASCRIPT MODERN & DATABASE DESIGN</h1>
+                <h2 style="border:none; text-align:center;">Lập trình viên làm Reviewer - AI làm Coder</h2>
+                <p style="font-size: 1.5rem;">Giảng viên: <b>Thầy Nguyễn Minh Phúc</b></p>
+                <div style="margin-top:20px;">
+                    <img src="https://placehold.co/800x200/003366/white?text=JS+Modern+Bất+Đồng+Bộ+&+SQL+Server" style="border-radius:10px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Chuẩn đầu ra (LLOs)</h2>
+                <ul>
+                    <li><b>Kiến thức:</b> Giải thích được cơ chế Async/Await và các quy tắc chuẩn hóa Database (1NF, 2NF, 3NF).</li>
+                    <li><b>Kỹ năng:</b> Review được code ES6+ do AI viết và thiết kế sơ đồ thực thể ERD đơn giản.</li>
+                    <li><b>Thái độ:</b> Hình thành tư duy "Kiểm soát viên", không chấp nhận code AI nếu không hiểu bản chất.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Lesson+Objectives" alt="Objectives">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Tại sao phải biết JS Modern?</h2>
+                <ul>
+                    <li>AI (Cursor/Copilot) luôn ưu tiên viết code theo cú pháp mới nhất (ES6+).</li>
+                    <li>Code ngắn hơn nhưng khó đọc hơn nếu không có nền tảng.</li>
+                    <li><b>Mục tiêu:</b> Để "nói chuyện" và "sửa lưng" AI khi nó viết sai logic.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Modern+JS+Evolution" alt="JS Modern">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>ES6+ Căn bản (AI hay dùng)</h2>
+                <ul>
+                    <li><b>Arrow Functions:</b> Cách viết hàm ngắn gọn.</li>
+                    <li><b>Template Literals:</b> Nối chuỗi bằng dấu backtick (`).</li>
+                </ul>
+                <div class="code-block">
+const hello = (name) => `Chào ${name}`;
+console.log(hello('Sinh viên LHU'));
+                </div>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Arrow+Functions+Logic" alt="Arrow">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Destructuring & Spread</h2>
+                <ul>
+                    <li><b>Destructuring:</b> Bóc tách dữ liệu từ Object/Array (Dùng cực nhiều khi nhận dữ liệu từ API).</li>
+                    <li><b>Spread Operator (...):</b> Sao chép hoặc gộp dữ liệu.</li>
+                </ul>
+                <div class="code-block">
+const user = { name: 'Phuc', role: 'Teacher' };
+const { name } = user; // Bóc lấy name
+const newUser = { ...user, age: 30 }; // Gộp
+                </div>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Destructuring+Data" alt="Destructuring">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Bất đồng bộ (Asynchronous)</h2>
+                <ul>
+                    <li>Backend thường phải đợi: Đợi Database, đợi gửi Mail, đợi đọc File.</li>
+                    <li>Nếu chạy đồng bộ (Sync): Web sẽ bị treo cho đến khi xong việc.</li>
+                    <li><b>Giải pháp Node.js:</b> Chạy việc khác trong lúc chờ (Non-blocking).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Async+vs+Sync+Concept" alt="Async">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Async / Await</h2>
+                <ul>
+                    <li>Cách viết code bất đồng bộ trông giống như đồng bộ.</li>
+                    <li>Giúp code sạch, dễ đọc và dễ gỡ lỗi (debug).</li>
+                </ul>
+                <div class="code-block">
+async function getData() {
+    const data = await database.fetch(); 
+    console.log(data);
+}
+                </div>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Async+Await+Execution" alt="Await">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Review: Quản lý lỗi</h2>
+                <ul>
+                    <li>AI rất hay bỏ qua `try...catch` nếu không yêu cầu.</li>
+                    <li><b>Nguyên tắc:</b> Mọi thao tác Database phải nằm trong khối xử lý lỗi.</li>
+                </ul>
+                <div class="highlight-box">
+                    Hỏi AI (Ctrl+L): "Đoạn code này sẽ thế nào nếu kết nối Database bị lỗi? Hãy thêm xử lý lỗi cho tôi."
+                </div>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Error+Handling+Logic" alt="Error">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Thiết kế Database (Cốt lõi)</h2>
+                <ul>
+                    <li><b>Entities (Thực thể):</b> Người dùng, Sản phẩm...</li>
+                    <li><b>Relationships (Quan hệ):</b> 1-1, 1-n, n-n.</li>
+                    <li><b>Khóa (Keys):</b> Primary Key (PK), Foreign Key (FK).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Database+Schema+ERD" alt="ERD">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Chuẩn hóa dữ liệu (Normalization)</h2>
+                <ul>
+                    <li><b>1NF:</b> Không có nhóm lặp (Dữ liệu nguyên tố).</li>
+                    <li><b>2NF:</b> Phụ thuộc hoàn toàn vào khóa chính.</li>
+                    <li><b>3NF:</b> Không phụ thuộc bắc cầu (VD: Đừng lưu Tên Tỉnh vào bảng Địa chỉ, hãy lưu ID Tỉnh).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=1NF+2NF+3NF+Rules" alt="Normalization">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Kiểu dữ liệu SQL Server</h2>
+                <ul>
+                    <li><b>Chuỗi:</b> NVARCHAR(max) cho tiếng Việt, VARCHAR cho mã/email.</li>
+                    <li><b>Số:</b> INT, DECIMAL(18,2) cho giá tiền.</li>
+                    <li><b>Ngày:</b> DATETIME2.</li>
+                    <li><b>AI Tip:</b> Yêu cầu AI "Sử dụng kiểu dữ liệu tối ưu cho SQL Server".</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=SQL+Server+Data+Types" alt="Data Types">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Lab 1: Bảo mật biến môi trường</h2>
+                <ul>
+                    <li>Cài đặt: <code>npm install dotenv</code></li>
+                    <li>Tạo file <code>.env</code> lưu thông tin Database.</li>
+                    <li>AI Prompt: "Hướng dẫn tôi cách dùng dotenv để bảo mật thông tin kết nối Database trong Node.js".</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Environment+Variables" alt="Env">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Lab 2: Hàm bất đồng bộ đầu tiên</h2>
+                <ul>
+                    <li>Tạo file <code>async_demo.js</code>.</li>
+                    <li>Dùng AI (Ctrl+K): "Viết một hàm async giả lập việc lấy dữ liệu từ database mất 2 giây, sử dụng setTimeout và Promise."</li>
+                    <li>Review: Giải thích từ khóa `await` trong kết quả AI trả về.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Writing+Async+Functions" alt="Async Lab">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Lab 3: AI Thiết kế Database</h2>
+                <ul>
+                    <li><b>Prompt:</b> "Tôi muốn xây dựng Web quản lý thư viện. Hãy thiết kế bảng SQL Server chuẩn 3NF gồm bảng Sách, Tác giả và Thể loại. Viết script CREATE TABLE."</li>
+                    <li><b>Yêu cầu:</b> Sinh viên phải giải thích được tại sao AI lại tách bảng.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=AI+Generated+SQL" alt="SQL Lab">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Mapping Dữ liệu (JS - SQL)</h2>
+                <ul>
+                    <li>JS: `String` -> SQL: `NVARCHAR`</li>
+                    <li>JS: `Number` -> SQL: `INT / DECIMAL`</li>
+                    <li>JS: `Boolean` -> SQL: `BIT`</li>
+                    <li>JS: `Object/Array` -> SQL: `JSON` (Hoặc tách bảng).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Data+Mapping+Diagram" alt="Mapping">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Review: AI cũng có thể sai!</h2>
+                <ul>
+                    <li>AI có thể viết code cũ (ES5) hoặc quên `await`.</li>
+                    <li>Lỗi "Promise pending": Do gọi hàm async mà không dùng await.</li>
+                    <li><b>Kỹ năng:</b> Luôn chạy code và kiểm tra Log (Console.log).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Debugging+AI+Code" alt="Debug">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Mini Challenge</h2>
+                <ul>
+                    <li><b>Đề bài:</b> Dùng AI viết 1 hàm async lấy danh sách Users. Sau đó dùng <code>.map()</code> để chỉ lấy ra cột 'fullName'.</li>
+                    <li><b>Yêu cầu:</b> Chụp ảnh màn hình code + giải thích tại sao dùng `.map()`.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Array+Methods+Challenge" alt="Challenge">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Bài tập về nhà</h2>
+                <ul>
+                    <li>1. Thiết kế ERD cho bài toán "Quản lý hóa đơn tiền điện".</li>
+                    <li>2. Viết 3 hàm Async sử dụng Async/Await để thực hiện các phép tính +, -, * (giả lập delay).</li>
+                    <li>3. Ghi lại 3 Prompt mà em thấy AI trả lời tốt nhất trong buổi hôm nay.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Home+Assignment" alt="Home">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Checkpoint Buổi 2</h2>
+                <ul>
+                    <li>[ ] Phân biệt được Arrow function và hàm thường.</li>
+                    <li>[ ] Giải thích được tại sao cần Async/Await.</li>
+                    <li>[ ] Biết cách nhờ AI chuẩn hóa Database.</li>
+                    <li>[ ] Hiểu tầm quan trọng của file .env.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Lesson+Checkpoint" alt="Done">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="slide-number" id="slideNum">Slide: 1 / 19</div>
+    <div class="controls">
+        <button onclick="prevSlide()">❮ Prev</button>
+        <button onclick="nextSlide()">Next ❯</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const container = document.getElementById('slideContainer');
+        const numDisplay = document.getElementById('slideNum');
+
+        function updateSlide() {
+            container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            numDisplay.innerText = `Slide: ${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

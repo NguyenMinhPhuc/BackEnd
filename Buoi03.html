@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LHU - Buổi 3: Express Boilerplate & MVC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #003366; 
+            --accent-color: #ffcc00;
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --slide-bg: #ffffff;
+            --code-bg: #282c34;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 80px 60px;
+            box-sizing: border-box;
+            background: var(--slide-bg);
+            position: relative;
+        }
+
+        .slide::before {
+            content: "Lạc Hồng University - Faculty of IT";
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            font-size: 1rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .slide::after {
+            content: "Buổi 3: Express Boilerplate & Architecture - Thầy Nguyễn Minh Phúc";
+            position: absolute;
+            bottom: 30px;
+            right: 50px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .content-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .content-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px dashed #ccc;
+            height: 100%;
+            width: 100%;
+        }
+
+        .content-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.8rem;
+            margin: 0 0 20px 0;
+            line-height: 1.2;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            border-left: 8px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        ul {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            padding-left: 20px;
+        }
+
+        li { margin-bottom: 8px; }
+
+        .code-block {
+            background: var(--code-bg);
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95rem;
+            margin: 10px 0;
+            border-left: 5px solid var(--accent-color);
+            white-space: pre-wrap;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover { background: var(--accent-color); color: #000; }
+
+        .slide-number {
+            position: fixed;
+            bottom: 40px;
+            left: 50px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .title-slide { grid-template-columns: 1fr; text-align: center; }
+        .title-slide .content-left { align-items: center; }
+
+        .highlight-box {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #0d47a1;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" id="slideContainer">
+        
+        <div class="slide title-slide">
+            <div class="content-left">
+                <h1>BUỔI 3: CẤU TRÚC DỰ ÁN EXPRESS CHUYÊN NGHIỆP</h1>
+                <h2 style="border:none; text-align:center;">Từ Code lộn xộn đến Kiến trúc Phân lớp (MVC)</h2>
+                <p style="font-size: 1.5rem;">Giảng viên: <b>Thầy Nguyễn Minh Phúc</b></p>
+                <div style="margin-top:20px;">
+                    <img src="https://placehold.co/800x200/003366/white?text=Boilerplate+&+Folder+Structure+với+AI" style="border-radius:10px;">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Chuẩn đầu ra (LLOs)</h2>
+                <ul>
+                    <li><b>Kiến thức:</b> Giải thích được vai trò của từng thư mục trong mô hình MVC/Layered Architecture.</li>
+                    <li><b>Kỹ năng:</b> Điều khiển AI khởi tạo cấu trúc Boilerplate chuyên nghiệp và tách code thành các Module.</li>
+                    <li><b>Thái độ:</b> Hình thành thói quen tổ chức mã nguồn khoa học ngay từ khi bắt đầu.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Course+Learning+Outcomes" alt="LLOs">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Vấn đề của "Spaghetti Code"</h2>
+                <ul>
+                    <li>Viết tất cả logic vào file <code>server.js</code>.</li>
+                    <li>Khó bảo trì, khó đọc khi dự án có 100+ API.</li>
+                    <li>Khó làm việc nhóm vì mọi người đều sửa chung 1 file.</li>
+                    <li><b>Giải pháp:</b> Chia để trị (Separation of Concerns).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Spaghetti+vs+Clean+Architecture" alt="Chaos">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Mô hình MVC là gì?</h2>
+                <ul>
+                    <li><b>Model:</b> Quản lý Dữ liệu (SQL Server).</li>
+                    <li><b>View:</b> Giao diện người dùng (Vite/React).</li>
+                    <li><b>Controller:</b> Bộ điều khiển (Cầu nối xử lý logic).</li>
+                    <li><i>Học phần này tập trung vào M và C.</i></li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Model+View+Controller+Diagram" alt="MVC">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Kiến trúc 3 lớp (3-Tier)</h2>
+                <ul>
+                    <li><b>Routes:</b> Định nghĩa các con đường (Endpoint).</li>
+                    <li><b>Controllers:</b> Nhận Request & Trả Response.</li>
+                    <li><b>Services:</b> Xử lý Logic nghiệp vụ (Tính toán, DB).</li>
+                    <li><i>Lợi ích: Dễ dàng thay thế SQL Server bằng DB khác mà không hỏng cả hệ thống.</i></li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Routes+Controller+Service+Flow" alt="Layers">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Folder: `src/configs/`</h2>
+                <ul>
+                    <li>Nơi chứa các cấu hình hệ thống: Database, Biến môi trường, Mail server.</li>
+                    <li>Giúp tách biệt thông tin cấu hình khỏi mã nguồn logic.</li>
+                </ul>
+                <div class="code-block">
+// src/configs/db.js
+const mssql = require('mssql');
+// Cấu hình từ .env
+                </div>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Configuration+Management" alt="Configs">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Folder: `src/routes/`</h2>
+                <ul>
+                    <li>Định nghĩa danh sách các API URL.</li>
+                    <li>Ví dụ: <code>/api/users</code>, <code>/api/products</code>.</li>
+                    <li>Sử dụng <code>express.Router()</code> để module hóa.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=API+Routing+Design" alt="Routes">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Folder: `src/controllers/`</h2>
+                <ul>
+                    <li>Nơi nhận dữ liệu từ Client (req.body, req.query).</li>
+                    <li>Gọi đến Service để xử lý.</li>
+                    <li>Trả kết quả về cho Client (res.json, res.status).</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Controller+Logic+Handling" alt="Controllers">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Folder: `src/models/`</h2>
+                <ul>
+                    <li>Nơi định nghĩa cấu trúc bảng (Schema).</li>
+                    <li>Quy định kiểu dữ liệu cho từng cột.</li>
+                    <li>Buổi sau chúng ta sẽ dùng <b>Sequelize</b> tại đây.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Data+Modeling+SQL" alt="Models">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Folder: `src/middlewares/`</h2>
+                <ul>
+                    <li>Bộ lọc trung gian (Người gác cổng).</li>
+                    <li>Kiểm tra xem User đã đăng nhập chưa?</li>
+                    <li>Dữ liệu gửi lên có hợp lệ không?</li>
+                    <li>Chạy trước khi vào Controller.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Middleware+Interceptors" alt="Middlewares">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>app.js vs server.js</h2>
+                <ul>
+                    <li><b>app.js:</b> Cấu hình Express, Middlewares, Routes.</li>
+                    <li><b>server.js (hoặc index.js):</b> Điểm bắt đầu (Entry point), nơi lắng nghe Port và kết nối DB.</li>
+                    <li><i>Chia đôi để phục vụ việc Unit Testing sau này.</i></li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Entry+Point+Organization" alt="Entry">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>AI Prompting: Tạo Boilerplate</h2>
+                <div class="code-block">
+"Hãy thiết kế cấu trúc thư mục chuẩn chuyên nghiệp cho dự án Express.js theo mô hình Layered Architecture. Bao gồm các folder: src/configs, src/controllers, src/models, src/routes, src/middlewares. Giải thích ý nghĩa từng folder."
+                </div>
+                <div class="highlight-box">
+                    Hỏi AI (Ctrl+L): "Viết file app.js mẫu kết nối các thành phần này lại."
+                </div>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=AI+Boilerplate+Prompt" alt="Prompt">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Lab 1: Tạo cấu trúc tự động</h2>
+                <ul>
+                    <li>1. Mở Terminal trong Cursor.</li>
+                    <li>2. Yêu cầu AI viết script <code>mkdir</code> để tạo nhanh các folder.</li>
+                    <li>3. Khởi tạo <code>package.json</code> và cài các thư viện cần thiết.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Automation+Folder+Creation" alt="Lab 1">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Lab 2: Route & Controller đầu tiên</h2>
+                <ul>
+                    <li>Tạo <code>src/routes/userRoutes.js</code>.</li>
+                    <li>Tạo <code>src/controllers/userController.js</code>.</li>
+                    <li>Dùng AI viết API <code>GET /api/users</code> trả về danh sách giả.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Modular+Routing+Lab" alt="Lab 2">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Lab 3: Tách cấu hình Database</h2>
+                <ul>
+                    <li>Dùng AI tạo file <code>src/configs/db.config.js</code>.</li>
+                    <li>Sử dụng <code>dotenv</code> để lấy <code>DB_USER</code>, <code>DB_PASSWORD</code>.</li>
+                    <li>Kết nối lại trong <code>server.js</code>.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Database+Config+Separation" alt="Lab 3">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Review: Luồng đi của Request</h2>
+                <ul>
+                    <li>Client $\rightarrow$ Server.js (Port) $\rightarrow$ app.js (Middlewares) $\rightarrow$ Routes $\rightarrow$ Controller $\rightarrow$ Service $\rightarrow$ Model.</li>
+                    <li>Hỏi AI: "Hãy vẽ luồng đi của một Request từ Client đến SQL Server trong cấu trúc này dưới dạng text."</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Request+Lifecycle+Diagram" alt="Review">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Mini Challenge</h2>
+                <ul>
+                    <li><b>Yêu cầu:</b> Thêm folder <code>src/utils/</code>.</li>
+                    <li>Nhờ AI viết một hàm Helper trong <code>utils</code> để format định dạng tiền Việt Nam (VND).</li>
+                    <li>Sử dụng hàm này trong <code>userController</code> để hiển thị lương nhân viên.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Utility+Helper+Challenge" alt="Challenge">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Bài tập về nhà & Nhật ký</h2>
+                <ul>
+                    <li>1. Hoàn thiện bộ Boilerplate sạch sẽ cho dự án cá nhân.</li>
+                    <li>2. Tạo thêm 1 Resource: <code>Product</code> gồm đầy đủ Routes và Controllers.</li>
+                    <li>3. Nhật ký Prompt: Ghi lại cách em yêu cầu AI giải thích mối quan hệ giữa Route và Controller.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Home+Assignment+Buoi+3" alt="BTVN">
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="content-left">
+                <h2>Checkpoint Buổi 3</h2>
+                <ul>
+                    <li>[ ] Đã hiểu tại sao phải chia nhỏ thư mục.</li>
+                    <li>[ ] Phân biệt được nhiệm vụ của Route và Controller.</li>
+                    <li>[ ] Biết dùng AI để thiết kế cấu trúc dự án.</li>
+                    <li>[ ] Chạy được Server với cấu trúc chuyên nghiệp.</li>
+                </ul>
+            </div>
+            <div class="content-right">
+                <img src="https://placehold.co/600x400?text=Lesson+Complete+Buoi+3" alt="Done">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="slide-number" id="slideNum">Slide: 1 / 19</div>
+    <div class="controls">
+        <button onclick="prevSlide()">❮ Prev</button>
+        <button onclick="nextSlide()">Next ❯</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const container = document.getElementById('slideContainer');
+        const numDisplay = document.getElementById('slideNum');
+
+        function updateSlide() {
+            container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+            numDisplay.innerText = `Slide: ${currentSlide + 1} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
